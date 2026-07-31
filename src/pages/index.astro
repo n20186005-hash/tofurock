@@ -1,0 +1,195 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FactGrid from "@/components/FactGrid.astro";
+import MapEmbed from "@/components/MapEmbed.astro";
+import { attraction, createAttractionStructuredData, faqItems, foodAreas, galleryImages, itineraryPlaces, nearbyPlaces, parkingInfo, transportOptions } from "@/data/site";
+
+const jsonLd = createAttractionStructuredData(Astro.site);
+const previewImages = galleryImages.slice(0, 4);
+---
+<BaseLayout jsonLd={jsonLd}>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_20%_15%,rgba(43,110,115,0.22),transparent_32rem),radial-gradient(circle_at_78%_20%,rgba(185,130,85,0.2),transparent_28rem)]"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-20">
+      <div class="flex flex-col justify-center">
+        <p class="section-kicker">{attraction.regionLabel}河岸</p>
+        <h1 class="mt-4 text-5xl font-black leading-[1.04] text-ink-900 text-balance sm:text-6xl lg:text-7xl">
+          {attraction.name}
+        </h1>
+        <p class="mt-5 text-2xl font-bold leading-9 text-river-900 text-balance">{attraction.tagline}</p>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-ink-900/72">{attraction.description}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/transportation/" class="primary-action px-6 py-3">規劃交通與停車</a>
+          <button type="button" data-save-place="tofu-rock-main" class="rounded-full border border-river-900/20 bg-white/70 px-6 py-3 text-sm font-black text-river-900 transition hover:-translate-y-0.5 hover:bg-white">
+            加入行程清單
+          </button>
+        </div>
+      </div>
+      <div class="glass-panel overflow-hidden rounded-[2.4rem] p-2">
+        <img src={attraction.heroImage} alt="頭前溪豆腐岩河岸景觀" width="2000" height="1250" loading="eager" decoding="async" class="aspect-[4/3] w-full rounded-[1.9rem] object-cover lg:aspect-[5/4]" />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <FactGrid />
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+    <div>
+      <p class="section-kicker">值得停留</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900 text-balance sm:text-4xl">它不是巨大景點，但很有新竹河岸的辨識度。</h2>
+      <p class="mt-6 text-lg leading-8 text-ink-900/72">
+        豆腐岩的魅力在於幾何線條、水面反光與城市背景。它適合放在竹北、高鐵新竹站、新瓦屋、頭前溪自行車道的半日行程中，不必趕路，停下來看水流穿過方格就很好。
+      </p>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <article class="rounded-3xl bg-white/70 p-6 shadow-sm ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">最佳遊覽時段</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">午後到夕陽前，水面與橋樑輪廓最有層次；陰天則有安靜的灰藍河景。雨後與水位高時請遠離河道。</p>
+      </article>
+      <article class="rounded-3xl bg-white/70 p-6 shadow-sm ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">建議停留</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">{attraction.suggestedStay}</p>
+      </article>
+      <article class="rounded-3xl bg-white/70 p-6 shadow-sm ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">門票 / 費用</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">{attraction.feeText}</p>
+      </article>
+      <article class="rounded-3xl bg-white/70 p-6 shadow-sm ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">安全提醒</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">不要為了照片走入濕滑方塊或越過護欄；帶小孩、寵物請保持牽引與陪同。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-river-900 py-20 text-tofu-50">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+      <div>
+        <p class="section-kicker !text-tofu-100/75">交通指南</p>
+        <h2 class="mt-3 text-3xl font-black text-balance sm:text-4xl">詳細交通與停車，一次抓住方向。</h2>
+        <p class="mt-5 leading-8 text-tofu-50/78">豆腐岩位在頭前溪河岸，不是大型封閉園區。外地旅客建議先定位高鐵新竹站、台鐵六家站或竹北市區，再銜接河岸道路。</p>
+        <a href="/transportation/" class="primary-action primary-action--light mt-7 px-5 py-3">看完整交通頁</a>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {transportOptions.map((option) => (
+          <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+            <h3 class="text-lg font-black">{option.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-tofu-50/76">{option.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+    <div>
+      <p class="section-kicker">停車資訊</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">停車資訊</h2>
+      <ul class="mt-6 space-y-4">
+        {parkingInfo.map((item) => <li class="rounded-2xl bg-white/70 p-5 leading-7 text-ink-900/74 ring-1 ring-river-900/10">{item}</li>)}
+      </ul>
+    </div>
+    <div>
+      <p class="section-kicker">地圖位置</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">地圖位置</h2>
+      <div class="mt-6">
+        <MapEmbed />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <div class="river-divider"></div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="section-kicker">周邊美食</p>
+        <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">周邊美食</h2>
+        <p class="mt-4 max-w-2xl leading-8 text-ink-900/72">把豆腐岩當成飯前飯後的河岸停留最舒服，建議選擇竹北或新竹市區用餐。</p>
+      </div>
+      <a href="/food/" class="primary-action px-5 py-3">看美食安排</a>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-4">
+      {foodAreas.map((area) => (
+        <article class="rounded-3xl bg-white/70 p-5 ring-1 ring-river-900/10">
+          <p class="text-xs font-black tracking-[0.16em] text-clay-500">{area.category}</p>
+          <h3 class="mt-3 text-xl font-black text-river-900">{area.name}</h3>
+          <p class="mt-3 text-sm leading-7 text-ink-900/70">{area.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="section-kicker">周邊景點</p>
+        <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">周邊景點</h2>
+      </div>
+      <a href="/nearby/" class="rounded-full border border-river-900/20 bg-white/70 px-5 py-3 text-sm font-black text-river-900">看順遊路線</a>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-4">
+      {nearbyPlaces.map((place) => (
+        <article class="rounded-3xl bg-tofu-100/70 p-5 ring-1 ring-river-900/10">
+          <p class="text-xs font-black tracking-[0.16em] text-river-700">{place.category}</p>
+          <h3 class="mt-3 text-xl font-black text-ink-900">{place.name}</h3>
+          <p class="mt-3 text-sm leading-7 text-ink-900/70">{place.description}</p>
+          <button type="button" data-save-place={place.id} class="mt-4 rounded-full bg-white px-4 py-2 text-sm font-black text-river-900 shadow-sm">加入清單</button>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p class="section-kicker">河岸影像</p>
+        <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">照片牆</h2>
+        <p class="mt-4 max-w-2xl leading-8 text-ink-900/72">真實河岸照片已壓縮為本地圖片檔，支援響應式與懶載入。</p>
+      </div>
+      <a href="/gallery/" class="primary-action px-5 py-3">打開完整畫廊</a>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-4">
+      {previewImages.map((image) => (
+        <a href="/gallery/" class="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-river-900/10">
+          <img src={image.src} alt={image.alt} width="700" height="466" loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" />
+          <p class="p-4 text-sm font-bold leading-6 text-ink-900/74">{image.caption}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <a href="/itinerary/" class="glass-panel rounded-[2rem] p-8 transition hover:-translate-y-1">
+      <p class="section-kicker">本機收藏</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">行程清單</h2>
+      <p class="mt-4 leading-8 text-ink-900/72">收藏想去的點，資料只存在目前裝置的瀏覽器，不需登入、不上傳。</p>
+    </a>
+    <a href="/memorial-card/" class="glass-panel rounded-[2rem] p-8 transition hover:-translate-y-1">
+      <p class="section-kicker">旅途紀念</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">景點紀念卡</h2>
+      <p class="mt-4 leading-8 text-ink-900/72">從相簿或相機選圖，在本地 Canvas 合成 1:1、明信片直式或 9:16 紀念圖。</p>
+    </a>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="section-kicker">常見問答</p>
+    <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">常見問答</h2>
+    <div class="mt-8 space-y-4">
+      {faqItems.slice(0, 3).map((item) => (
+        <details class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+          <summary class="cursor-pointer text-lg font-black text-river-900">{item.question}</summary>
+          <p class="mt-4 leading-8 text-ink-900/72">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+    <a href="/faq/" class="primary-action mt-7 px-5 py-3">查看全部問答</a>
+  </section>
+
+  <script>
+    import "@/scripts/itinerary";
+  </script>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MapEmbed from "@/components/MapEmbed.astro";
+import PageHero from "@/components/PageHero.astro";
+import { attraction, createAttractionStructuredData, parkingInfo, transportOptions } from "@/data/site";
+---
+<BaseLayout title="詳細交通與停車" description="頭前溪豆腐岩交通、停車、地圖與安全抵達方式整理。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="交通指南"
+    title="詳細交通與停車"
+    description="豆腐岩位在竹北頭前溪河岸，適合以高鐵新竹站、台鐵六家站、竹北市區或頭前溪河濱動線作為出發點。"
+    image="/images/gallery-zhubei-skyline.webp"
+    imageAlt="從豆腐岩附近望向竹北城市天際線"
+  />
+
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+    <div>
+      <p class="section-kicker">地點定位</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">地點定位</h2>
+      <p class="mt-5 text-lg leading-8 text-ink-900/72">{attraction.address}</p>
+      <p class="mt-4 leading-8 text-ink-900/72">可把地圖導航設定為「Tofu Rock」或「頭前溪豆腐岩」，抵達後依現場道路與堤岸通行狀況步行到安全觀景位置。</p>
+      <div class="mt-8 rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">坐標</h3>
+        <p class="mt-3 font-mono text-sm text-ink-900/70">{attraction.latitude}, {attraction.longitude}</p>
+      </div>
+    </div>
+    <MapEmbed />
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <p class="section-kicker">抵達方式</p>
+    <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">抵達方式</h2>
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      {transportOptions.map((option) => (
+        <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+          <h3 class="text-xl font-black text-river-900">{option.title}</h3>
+          <p class="mt-4 leading-8 text-ink-900/72">{option.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
+    <div class="glass-panel rounded-[2rem] p-8">
+      <p class="section-kicker">停車資訊</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">停車資訊</h2>
+      <ul class="mt-6 space-y-4">
+        {parkingInfo.map((item) => <li class="rounded-2xl bg-white/70 p-5 leading-7 text-ink-900/72">{item}</li>)}
+      </ul>
+    </div>
+    <div class="glass-panel rounded-[2rem] p-8">
+      <p class="section-kicker">遊覽時間</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">最佳遊覽時段 / 建議停留</h2>
+      <p class="mt-6 leading-8 text-ink-900/72">{attraction.suggestedStay}</p>
+      <p class="mt-4 leading-8 text-ink-900/72">晴天午後、夕陽前後與橋燈初亮時最容易拍出層次；但夜間請留在堤岸遠拍，不要下到河道。</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createAttractionStructuredData, foodAreas } from "@/data/site";
+---
+<BaseLayout title="周邊美食" description="頭前溪豆腐岩周邊美食區域與半日行程用餐建議。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="周邊美食"
+    title="周邊美食：把豆腐岩排在飯前飯後最剛好"
+    description="豆腐岩本身不是商圈，建議把用餐點安排在六家、高鐵新竹站、竹北市區或新竹市區，動線更順、選擇也更多。"
+    image="/images/gallery-river-sunset.webp"
+    imageAlt="頭前溪豆腐岩夕陽河景"
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid gap-5 md:grid-cols-2">
+      {foodAreas.map((area) => (
+        <article id={area.id} class="glass-panel rounded-[2rem] p-7">
+          <p class="section-kicker">{area.category}</p>
+          <h2 class="mt-3 text-3xl font-black text-ink-900">{area.name}</h2>
+          <p class="mt-5 leading-8 text-ink-900/72">{area.description}</p>
+          <button type="button" data-save-place={area.id} class="mt-6 rounded-full bg-river-900 px-5 py-3 text-sm font-black text-tofu-50">加入行程清單</button>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-river-900 py-16 text-tofu-50">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="section-kicker !text-tofu-100/75">行程提案</p>
+      <h2 class="mt-3 text-3xl font-black sm:text-4xl">兩種簡單吃法</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
+          <h3 class="text-xl font-black">夕陽散步 → 竹北晚餐</h3>
+          <p class="mt-4 leading-8 text-tofu-50/76">下午抵達豆腐岩看水面與橋影，拍完後轉往竹北市區用餐。這條路線適合朋友聚餐、情侶散步。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
+          <h3 class="text-xl font-black">新竹小吃 → 河岸消化</h3>
+          <p class="mt-4 leading-8 text-tofu-50/76">先在新竹市區吃米粉、貢丸湯或甜點，再到頭前溪河岸短暫散步，節奏輕鬆。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import "@/scripts/itinerary";
+  </script>
+</BaseLayout>

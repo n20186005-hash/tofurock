@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { createAttractionStructuredData, createFaqStructuredData, faqItems } from "@/data/site";
+---
+<BaseLayout title="常見問答" description="頭前溪豆腐岩常見問答：門票、拍照時間、安全、交通與本地功能隱私。" jsonLd={[createAttractionStructuredData(Astro.site), createFaqStructuredData()]}>
+  <PageHero
+    kicker="出發前先知道"
+    title="常見問答"
+    description="把第一次去豆腐岩最常遇到的問題整理在這裡：它是不是天然岩石、要不要門票、什麼時間好拍、能不能走下去，以及本站的本地功能如何保護照片與清單。"
+    image="/images/tofu-blocks-close.webp"
+    imageAlt="近看豆腐岩方格護床"
+  />
+
+  <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="space-y-4">
+      {faqItems.map((item) => (
+        <details class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+          <summary class="cursor-pointer text-lg font-black text-river-900">{item.question}</summary>
+          <p class="mt-4 leading-8 text-ink-900/72">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

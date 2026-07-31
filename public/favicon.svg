@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="豆腐岩河岸圖標">
+  <defs>
+    <linearGradient id="river" x1="18" x2="111" y1="12" y2="119" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3E8587"/>
+      <stop offset="1" stop-color="#123C43"/>
+    </linearGradient>
+    <linearGradient id="tofu" x1="40" x2="90" y1="28" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFDF6"/>
+      <stop offset="1" stop-color="#F1DDB6"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="url(#river)"/>
+  <g fill="url(#tofu)" stroke="#FFF8E8" stroke-width="3">
+    <rect x="27" y="27" width="31" height="27" rx="7"/>
+    <rect x="65" y="27" width="31" height="27" rx="7"/>
+    <rect x="27" y="61" width="31" height="27" rx="7"/>
+    <rect x="65" y="61" width="31" height="27" rx="7"/>
+  </g>
+  <path d="M15 92c14-8 27-8 40 0 14 8 27 8 40 0 7-4 13-5 18-4" fill="none" stroke="#9DD5CF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M18 108c11-5 21-5 31 0 12 6 23 6 34 0 10-5 19-5 28-1" fill="none" stroke="#FFF8E8" stroke-width="5" stroke-linecap="round" opacity=".92"/>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="none" stroke="#FFF" stroke-opacity=".42" stroke-width="4"/>
+</svg>

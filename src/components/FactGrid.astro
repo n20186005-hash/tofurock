@@ -1,0 +1,11 @@
+---
+import { quickFacts } from "@/data/site";
+---
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  {quickFacts.map((fact) => (
+    <div class="glass-panel tofu-block p-5">
+      <p class="text-xs font-black tracking-[0.18em] text-river-700">{fact.label}</p>
+      <p class="mt-3 text-base font-bold leading-7 text-ink-900/82">{fact.value}</p>
+    </div>
+  ))}
+</div>

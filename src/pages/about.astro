@@ -1,0 +1,66 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { attraction, createAttractionStructuredData, galleryImages } from "@/data/site";
+---
+<BaseLayout title="景點故事" description="認識新竹竹北頭前溪豆腐岩的形成、拍攝重點與安全提醒。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="景點故事"
+    title="為什麼叫豆腐岩？"
+    description="它的名字來自水泥護床方塊與水流形成的幾何畫面。遠看像一格格豆腐排在頭前溪裡，也因此成為新竹河岸很容易被記住的景點。"
+    image={galleryImages[1]?.src}
+    imageAlt="豆腐岩方格構造與水流"
+  />
+
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+    <div>
+      <p class="section-kicker">豆腐岩由來</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900 text-balance sm:text-4xl">工程構造變成了河岸景觀。</h2>
+      <p class="mt-6 text-lg leading-9 text-ink-900/72">
+        豆腐岩不是需要長途跋涉的山海大景，它的特色正好相反：在城市邊緣、橋樑旁、河流中，一排排方格把水流切成有節奏的線條。天氣、季節與水位不同，同一個角度會有很不一樣的表情。
+      </p>
+      <p class="mt-5 text-lg leading-9 text-ink-900/72">
+        這也讓它很適合短暫停留。你可以把它當作竹北散步的開場、夕陽前的拍照點，或新竹市區小吃前的一段河岸轉場。
+      </p>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">看點一：方格線條</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">水流穿過方塊間隙，形成像棋盤又像豆腐盒的規律畫面。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">看點二：橋與城市</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">竹北天際線與橋樑可以當背景，照片不會只有水泥塊。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">看點三：水位變化</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">水位高低會影響可見方格與水流速度。水位高時請遠觀，不要進入河床。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">看點四：短程順遊</h3>
+        <p class="mt-4 leading-7 text-ink-900/72">與新瓦屋、六家、高鐵新竹站、竹北市區餐飲點都能自然串接。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-river-900 py-16 text-tofu-50">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="section-kicker !text-tofu-100/75">安心看景</p>
+      <h2 class="mt-3 text-3xl font-black text-balance sm:text-4xl">豆腐岩好拍，但安全距離比角度更重要。</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">不要踩濕滑方塊</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">護床不是步道，落差、水流與青苔都可能造成危險。</p>
+        </div>
+        <div class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">避開雨後與漲水</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">溪水變化快，雨後水色與流速都可能不適合靠近。</p>
+        </div>
+        <div class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">夜間只建議遠拍</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">夜景很美，但視線差，建議留在堤岸與光線足夠的位置。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import PageHero from "@/components/PageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { createAttractionStructuredData, nearbyPlaces } from "@/data/site";
+---
+<BaseLayout title="周邊景點" description="頭前溪豆腐岩周邊景點與竹北、新竹半日順遊路線。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="周邊順遊"
+    title="周邊景點：竹北河岸半日順遊"
+    description="豆腐岩適合當作短暫景觀點，和文化保存區、河濱自行車道、六家交通節點與新竹市區小吃串成不趕路的行程。"
+    image="/images/gallery-zhubei-skyline.webp"
+    imageAlt="豆腐岩附近的竹北城市與河岸景觀"
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid gap-5 md:grid-cols-2">
+      {nearbyPlaces.map((place) => (
+        <article id={place.id} class="glass-panel rounded-[2rem] p-7">
+          <p class="section-kicker">{place.category}</p>
+          <h2 class="mt-3 text-3xl font-black text-ink-900">{place.name}</h2>
+          <p class="mt-5 leading-8 text-ink-900/72">{place.description}</p>
+          <button type="button" data-save-place={place.id} class="mt-6 rounded-full bg-river-900 px-5 py-3 text-sm font-black text-tofu-50">加入行程清單</button>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="rounded-[2rem] bg-tofu-100/70 p-8 ring-1 ring-river-900/10">
+      <p class="section-kicker">建議順序</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">建議順序</h2>
+      <ol class="mt-8 grid gap-4 md:grid-cols-4">
+        <li class="rounded-3xl bg-white/70 p-5"><span class="text-sm font-black text-clay-500">01</span><p class="mt-3 font-black text-river-900">高鐵新竹站 / 六家站集合</p></li>
+        <li class="rounded-3xl bg-white/70 p-5"><span class="text-sm font-black text-clay-500">02</span><p class="mt-3 font-black text-river-900">新瓦屋散步與拍照</p></li>
+        <li class="rounded-3xl bg-white/70 p-5"><span class="text-sm font-black text-clay-500">03</span><p class="mt-3 font-black text-river-900">頭前溪豆腐岩看夕光</p></li>
+        <li class="rounded-3xl bg-white/70 p-5"><span class="text-sm font-black text-clay-500">04</span><p class="mt-3 font-black text-river-900">竹北或新竹市區晚餐</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <script>
+    import "@/scripts/itinerary";
+  </script>
+</BaseLayout>

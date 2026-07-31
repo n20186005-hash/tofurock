@@ -1,0 +1,52 @@
+---
+import { navItems, attraction } from "@/data/site";
+const currentPath = Astro.url.pathname;
+---
+<header class="sticky top-0 z-40 border-b border-river-900/10 bg-tofu-50/90 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-8">
+    <a href="/" class="group flex items-center gap-3" aria-label={`${attraction.name}首頁`}>
+      <img src="/favicon.svg" width="48" height="48" alt="" class="h-12 w-12 rounded-[1.05rem] shadow-lg shadow-river-900/20 transition duration-300 group-hover:-rotate-3 group-hover:scale-105" />
+      <span class="leading-tight">
+        <span class="block text-sm font-black tracking-[0.18em] text-river-900">{attraction.regionLabel}</span>
+        <span class="block text-base font-black text-ink-900 group-hover:text-river-700">{attraction.name}</span>
+      </span>
+    </a>
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="主要導覽">
+      {navItems.map((item) => {
+        const active = currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href));
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              "rounded-full px-3 py-2 text-sm font-bold transition",
+              active ? "bg-[#0b3036] !text-white shadow-md ring-2 ring-[#d7a55d]" : "text-ink-900/78 hover:bg-river-100 hover:text-river-900",
+            ]}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+    <a href="/memorial-card/" class="hidden rounded-full bg-clay-500 px-4 py-2 text-sm font-black text-white shadow-lg shadow-clay-500/25 transition hover:-translate-y-0.5 hover:bg-river-900 sm:inline-flex">
+      做紀念卡
+    </a>
+  </div>
+  <div class="scrollbar-hide flex gap-2 overflow-x-auto px-4 pb-3 lg:hidden" aria-label="手機導覽">
+    {navItems.map((item) => {
+      const active = currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href));
+      return (
+        <a
+          href={item.href}
+          class:list={[
+            "shrink-0 rounded-full px-3 py-2 text-sm font-bold",
+            active ? "bg-[#0b3036] !text-white shadow-sm ring-2 ring-[#d7a55d]" : "bg-white/70 text-ink-900/75",
+          ]}
+          aria-current={active ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      );
+    })}
+  </div>
+</header>

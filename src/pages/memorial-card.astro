@@ -1,0 +1,64 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { attraction, createAttractionStructuredData } from "@/data/site";
+---
+<BaseLayout title="景點紀念卡" description="使用瀏覽器本地 Canvas 為頭前溪豆腐岩製作紀念卡，照片不會上傳。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="景點紀念卡"
+    title="景點紀念卡：照片僅保存在您的設備"
+    description="從相機、自拍或相簿選圖，在瀏覽器本地用 Canvas 合成紀念卡並下載。照片、文字與成品全程不經伺服器。"
+    image={attraction.cardImage}
+    imageAlt="豆腐岩紀念卡預覽照片"
+  />
+
+  <section class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+    <form class="glass-panel rounded-[2rem] p-7" id="cardControls">
+      <p class="section-kicker">本機製作</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">設定紀念卡</h2>
+      <p class="mt-4 rounded-2xl bg-river-100/80 p-4 text-sm font-bold leading-7 text-river-900">照片僅保存在您的設備；本站不會上傳、儲存或分析您選取的圖片。</p>
+
+      <label class="mt-6 block text-sm font-black text-ink-900" for="cardPhoto">拍照 / 自拍 / 從相簿選圖</label>
+      <input id="cardPhoto" type="file" accept="image/*" capture="environment" class="mt-2 block w-full rounded-2xl border border-river-900/15 bg-white/80 p-3 text-sm" />
+
+      <div class="mt-5 grid gap-4 sm:grid-cols-2">
+        <label class="block text-sm font-black text-ink-900" for="cardSize">
+          尺寸
+          <select id="cardSize" class="mt-2 block w-full rounded-2xl border border-river-900/15 bg-white/80 p-3 font-normal">
+            <option value="square">1:1 方形</option>
+            <option value="postcard">明信片直式</option>
+            <option value="story">9:16 限動</option>
+          </select>
+        </label>
+        <label class="block text-sm font-black text-ink-900" for="cardStyle">
+          風格
+          <select id="cardStyle" class="mt-2 block w-full rounded-2xl border border-river-900/15 bg-white/80 p-3 font-normal">
+            <option value="river">河岸青綠</option>
+            <option value="sunset">夕光豆腐色</option>
+            <option value="night">橋影夜藍</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="mt-5 block text-sm font-black text-ink-900" for="cardTitle">卡片標題</label>
+      <input id="cardTitle" type="text" value="頭前溪豆腐岩" maxlength="24" class="mt-2 block w-full rounded-2xl border border-river-900/15 bg-white/80 p-3" />
+
+      <label class="mt-5 block text-sm font-black text-ink-900" for="cardDate">日期 / 副標</label>
+      <input id="cardDate" type="text" maxlength="32" class="mt-2 block w-full rounded-2xl border border-river-900/15 bg-white/80 p-3" />
+
+      <div class="mt-7 flex flex-wrap gap-3">
+        <button id="renderCard" type="button" class="rounded-full bg-river-900 px-5 py-3 text-sm font-black text-tofu-50">重新合成</button>
+        <button id="downloadCard" type="button" class="rounded-full border border-river-900/20 bg-white/80 px-5 py-3 text-sm font-black text-river-900">下載 PNG</button>
+      </div>
+    </form>
+
+    <div class="flex flex-col items-center justify-start gap-5">
+      <canvas id="memorialCanvas" class="card-canvas" width="1200" height="1200" aria-label="紀念卡預覽"></canvas>
+      <p class="max-w-xl text-center text-sm leading-7 text-ink-900/60">預設會先使用豆腐岩本地照片作為背景；選取自己的照片後，所有合成動作仍只在目前瀏覽器進行。</p>
+    </div>
+  </section>
+
+  <script>
+    import "@/scripts/memorial-card";
+  </script>
+</BaseLayout>

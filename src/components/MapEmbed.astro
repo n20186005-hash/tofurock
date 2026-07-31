@@ -1,0 +1,15 @@
+---
+import { attraction } from "@/data/site";
+---
+<div class="map-frame glass-panel rounded-[2rem] p-2">
+  <iframe
+    src={attraction.mapEmbedSrc}
+    width="600"
+    height="450"
+    style="border:0;"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    title={`${attraction.name} Google 地圖`}
+  ></iframe>
+</div>

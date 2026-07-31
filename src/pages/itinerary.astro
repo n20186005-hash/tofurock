@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { createAttractionStructuredData, itineraryPlaces } from "@/data/site";
+---
+<BaseLayout title="行程清單" description="用 localStorage 收藏頭前溪豆腐岩與周邊想去的景點，資料只保存在目前裝置。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="行程收藏"
+    title="行程清單：收藏想去的點"
+    description="點選加入後，清單只會儲存在您目前瀏覽器的 localStorage。沒有登入、沒有資料庫，也不會上傳到伺服器。"
+    image="/images/card-preview.webp"
+    imageAlt="豆腐岩河岸直式紀念照片"
+  />
+
+  <section class="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+    <div>
+      <p class="section-kicker">選擇景點</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">可收藏項目</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        {itineraryPlaces.map((place) => (
+          <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+            <p class="text-xs font-black tracking-[0.16em] text-clay-500">{place.category}</p>
+            <h3 class="mt-3 text-xl font-black text-river-900">{place.name}</h3>
+            <p class="mt-3 text-sm leading-7 text-ink-900/70">{place.description}</p>
+            <button type="button" data-save-place={place.id} class="mt-5 rounded-full bg-river-900 px-4 py-2 text-sm font-black text-tofu-50">加入清單</button>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <aside class="glass-panel h-fit rounded-[2rem] p-7 lg:sticky lg:top-28">
+      <p class="section-kicker">儲存在本機</p>
+      <h2 class="mt-3 text-3xl font-black text-ink-900">我的清單</h2>
+      <p class="mt-4 text-sm leading-7 text-ink-900/66">資料僅保存在目前設備與瀏覽器。換裝置、清除瀏覽器資料或使用無痕模式，都可能看不到此清單。</p>
+      <div id="itineraryList" class="mt-6 space-y-3" aria-live="polite"></div>
+      <button id="clearItinerary" type="button" class="mt-6 hidden rounded-full border border-river-900/20 bg-white/70 px-4 py-2 text-sm font-black text-river-900">清空清單</button>
+    </aside>
+  </section>
+
+  <section class="bg-river-900 py-16 text-tofu-50">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="section-kicker !text-tofu-100/75">行程示例</p>
+      <h2 class="mt-3 text-3xl font-black sm:text-4xl">半日行程範例</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
+          <p class="text-sm font-black text-tofu-100/80">下午</p>
+          <h3 class="mt-2 text-xl font-black">新瓦屋或竹北市區</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">先安排文化散步、咖啡或簡餐，避免太早到河岸曝曬。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
+          <p class="text-sm font-black text-tofu-100/80">夕陽前</p>
+          <h3 class="mt-2 text-xl font-black">豆腐岩拍照</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">看方格、水流、橋樑與天際線，注意停留在安全範圍。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
+          <p class="text-sm font-black text-tofu-100/80">晚上</p>
+          <h3 class="mt-2 text-xl font-black">竹北或新竹晚餐</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">拍完轉往餐飲集中區，不必在河岸找臨時用餐點。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import "@/scripts/itinerary";
+  </script>
+</BaseLayout>

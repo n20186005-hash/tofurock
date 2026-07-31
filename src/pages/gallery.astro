@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { createAttractionStructuredData, galleryImages } from "@/data/site";
+---
+<BaseLayout title="照片牆" description="頭前溪豆腐岩真實照片牆，集中展示河岸、水流、橋樑與竹北城市景觀。" jsonLd={createAttractionStructuredData(Astro.site)}>
+  <PageHero
+    kicker="河岸影像"
+    title="照片牆：水流、方格與竹北天際線"
+    description="所有展示圖均存放在本站本地檔案，支援懶載入、響應式網格與點擊放大，方便先感受豆腐岩的視覺氣質。"
+    image="/images/gallery-blocks-wide.webp"
+    imageAlt="豆腐岩方格護床與水流全景"
+  />
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {galleryImages.map((image, index) => (
+        <button type="button" class="gallery-button group overflow-hidden rounded-[1.75rem] bg-white text-left shadow-sm ring-1 ring-river-900/10" data-lightbox data-image={image.src} data-alt={image.alt} data-caption={image.caption} data-credit={image.credit} aria-label={`放大照片 ${index + 1}`}>
+          <img src={image.src} alt={image.alt} width="900" height="600" loading={index < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[4/3] w-full object-cover" />
+          <div class="p-5">
+            <p class="font-black leading-7 text-river-900">{image.caption}</p>
+            <p class="mt-2 text-xs leading-5 text-ink-900/56">{image.credit}</p>
+          </div>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="rounded-[2rem] bg-white/75 p-7 ring-1 ring-river-900/10">
+      <p class="section-kicker">照片授權</p>
+      <h2 class="mt-3 text-2xl font-black text-ink-900">照片授權說明</h2>
+      <p class="mt-4 leading-8 text-ink-900/72">
+        本站使用真實照片並壓縮為本地 WebP 檔案。原始素材來自 Wikimedia Commons：Rick888chen 的新竹豆腐岩照片採 CC BY-SA 4.0 授權；Mark JH 的竹北天際線與橋景照片採 CC0。
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3 text-sm font-bold text-river-900">
+        <a class="rounded-full bg-river-100 px-4 py-2" href="https://commons.wikimedia.org/wiki/File:%E6%96%B0%E7%AB%B9%E8%B1%86%E8%85%90%E5%B2%A9_Hsinchu_Tofu_Rock_1.jpg" rel="nofollow noopener" target="_blank">素材 1</a>
+        <a class="rounded-full bg-river-100 px-4 py-2" href="https://commons.wikimedia.org/wiki/File:%E6%96%B0%E7%AB%B9%E8%B1%86%E8%85%90%E5%B2%A9_Hsinchu_Tofu_Rock_2.jpg" rel="nofollow noopener" target="_blank">素材 2</a>
+        <a class="rounded-full bg-river-100 px-4 py-2" href="https://commons.wikimedia.org/wiki/File:Hsinchu,_Taiwan_skyline_from_Tofu_Rocks_3.jpg" rel="nofollow noopener" target="_blank">素材 3</a>
+        <a class="rounded-full bg-river-100 px-4 py-2" href="https://commons.wikimedia.org/wiki/File:Zhubei_Skyline_from_Tofu_Rocks.jpg" rel="nofollow noopener" target="_blank">素材 4</a>
+      </div>
+    </div>
+  </section>
+
+  <dialog id="galleryDialog" class="lightbox-dialog" aria-label="照片大圖瀏覽">
+    <div class="lightbox-body">
+      <div class="lightbox-toolbar">
+        <span class="lightbox-brand">
+          <img src="/favicon.svg" width="34" height="34" alt="" />
+          <span>
+            <small>河岸影像</small>
+            <strong>豆腐岩照片牆</strong>
+          </span>
+        </span>
+        <button id="galleryDialogClose" type="button" class="lightbox-control lightbox-close" aria-label="關閉大圖">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="lightbox-stage" data-lightbox-stage>
+        <button type="button" class="lightbox-control lightbox-nav lightbox-prev" data-lightbox-prev aria-label="上一張照片">
+          <span aria-hidden="true">‹</span>
+        </button>
+
+        <figure class="lightbox-figure">
+          <div class="lightbox-media">
+            <img id="galleryDialogImage" src="/images/gallery-river-sunset.webp" alt="放大的豆腐岩照片" />
+          </div>
+          <figcaption>
+            <span class="min-w-0">
+              <strong id="galleryDialogCaption"></strong>
+              <span id="galleryDialogCredit"></span>
+            </span>
+            <span class="lightbox-counter" data-lightbox-counter aria-live="polite"></span>
+          </figcaption>
+        </figure>
+
+        <button type="button" class="lightbox-control lightbox-nav lightbox-next" data-lightbox-next aria-label="下一張照片">
+          <span aria-hidden="true">›</span>
+        </button>
+      </div>
+
+      <p class="lightbox-help">左右滑動或使用方向鍵切換，按 Esc 關閉</p>
+    </div>
+  </dialog>
+
+  <script>
+    import "@/scripts/gallery";
+  </script>
+</BaseLayout>

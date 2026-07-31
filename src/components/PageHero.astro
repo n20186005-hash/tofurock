@@ -1,0 +1,28 @@
+---
+export interface Props {
+  kicker?: string;
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+}
+const { kicker, title, description, image, imageAlt = "" } = Astro.props;
+---
+<section class="relative overflow-hidden">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-16">
+    <div class="flex flex-col justify-center">
+      {kicker && <p class="section-kicker">{kicker}</p>}
+      <h1 class="mt-4 text-4xl font-black leading-tight text-ink-900 text-balance sm:text-5xl lg:text-6xl">{title}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-ink-900/72">{description}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/transportation/" class="primary-action px-5 py-3">查看交通</a>
+        <a href="/gallery/" class="rounded-full border border-river-900/20 bg-white/65 px-5 py-3 text-sm font-black text-river-900 transition hover:-translate-y-0.5 hover:bg-white">看照片牆</a>
+      </div>
+    </div>
+    {image && (
+      <div class="glass-panel overflow-hidden rounded-[2rem] p-2">
+        <img src={image} alt={imageAlt} width="1600" height="1000" loading="eager" decoding="async" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover lg:aspect-[5/4]" />
+      </div>
+    )}
+  </div>
+</section>
