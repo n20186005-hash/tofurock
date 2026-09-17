@@ -20,6 +20,8 @@ export type SaveablePlace = {
 
 export const gaMeasurementId = "G-HXM22WWPKP";
 
+export const siteDomain = "tofurock.com";
+
 export const attraction = {
   name: "頭前溪豆腐岩",
   alternateName: "Tofu Rock",
@@ -33,6 +35,9 @@ export const attraction = {
   latitude: 24.7998907,
   longitude: 121.0296557,
   ratingValue: "4.0",
+  reviewCount: 4203,
+  ratingSyncDate: "2026 年 9 月",
+  googleMapsUrl: "https://maps.app.goo.gl/NM2FutiUt5QBLphA7",
   openingHoursText: "每日 24 小時戶外開放；雨後、漲水與夜間請勿靠近河道。",
   feeText: "戶外河岸景觀，通常無售票口；如遇河川工程、封閉或活動管制，以現場公告為準。",
   suggestedStay: "約 20–40 分鐘；若拍攝夕陽、水流與夜景，可預留 1 小時左右。",
@@ -47,6 +52,7 @@ export const navItems: NavItem[] = [
   { href: "/", label: "首頁" },
   { href: "/about/", label: "景點故事" },
   { href: "/transportation/", label: "交通停車" },
+  { href: "/guide/", label: "訪客指南" },
   { href: "/food/", label: "周邊美食" },
   { href: "/nearby/", label: "周邊景點" },
   { href: "/gallery/", label: "照片牆" },
@@ -125,13 +131,31 @@ export const parkingInfo = [
   "若帶長輩或孩子同行，建議先讓乘客在安全處下車，再由駕駛尋找車位。",
 ];
 
+// 頭前溪停車場為 GSC 中曝光最高（127 次）卻零點擊的查詢，必須給出具體答案。
+export const parkingSpots = [
+  {
+    name: "頭前溪河濱公園停車場",
+    fee: "免費",
+    gps: "24.7999, 121.0297",
+    access: "落車後步行約 3–5 分鐘即抵豆腐岩觀景位置，是最靠近的停車選擇。",
+    note: "假日黃昏熱門時段較易客滿，可改停周邊替代車位或錯峰前往。",
+  },
+  {
+    name: "興隆大橋 / 經國大橋周邊路邊停車",
+    fee: "部分免費、部分收費路段",
+    gps: "",
+    access: "沿堤岸動線停靠，步行距離依落點而異，約 5–10 分鐘到觀景處。",
+    note: "請停在合法格位，避開橋下出入口、工程車動線與轉角，以免影響通行或被拖吊。",
+  },
+];
+
 export const foodAreas = [
   {
     id: "liujia-food",
     name: "六家 / 高鐵新竹站周邊",
     category: "近距離用餐",
     description:
-      "適合把豆腐岩安排在飯前或飯後，周邊有咖啡、簡餐、火鍋與親子友善餐廳，移動路線最順。",
+      "適合把豆腐岩安排在飯前或飯後，喜來登周邊商圈有咖啡、簡餐、火鍋與親子友善餐廳，移動路線最順。",
   },
   {
     id: "zhubei-guangming",
@@ -185,6 +209,20 @@ export const nearbyPlaces: SaveablePlace[] = [
     description: "可把竹北河岸與新竹市區小吃、老街巷弄排成輕鬆的一日行程。",
     href: "/nearby/#hsinchu-city",
   },
+  {
+    id: "shuizhen-park",
+    name: "水圳森林公園",
+    category: "河岸綠地",
+    description: "竹北的開放綠帶與水岸步道，適合散步、遛小孩與騎單車，可和豆腐岩排成同一段河岸動線。",
+    href: "/nearby/#shuizhen-park",
+  },
+  {
+    id: "sheraton-area",
+    name: "新竹喜來登周邊商圈",
+    category: "商圈美食",
+    description: "高鐵新竹站旁的喜來登周邊有飯店、商場與餐飲選擇，適合把豆腐岩與竹北一日遊的晚餐排在這裡。",
+    href: "/nearby/#sheraton-area",
+  },
 ];
 
 export const itineraryPlaces: SaveablePlace[] = [
@@ -230,6 +268,16 @@ export const faqItems = [
     answer:
       "不會。行程清單只存在您目前瀏覽器的 localStorage，紀念卡也在瀏覽器 Canvas 本地合成；照片與成品不經伺服器。",
   },
+  {
+    question: "頭前溪豆腐岩有停車場嗎？收費如何？",
+    answer:
+      "豆腐岩旁設有頭前溪河濱公園免費停車場，落車後步行約 3–5 分鐘即可抵達觀景位置。假日黃昏熱門時段較易客滿，可改停周邊合法車位或錯峰前往。",
+  },
+  {
+    question: "豆腐岩怎麼去？",
+    answer:
+      "最方便是先到高鐵新竹站或台鐵六家站，再轉計程車、共享機車或自行車銜接頭前溪堤岸；自行開車可導航「Tofu Rock」或「頭前溪豆腐岩」，停在河濱公園停車場後步行抵達。",
+  },
 ];
 
 export function pageTitle(title?: string) {
@@ -241,12 +289,24 @@ export function absoluteUrl(site: URL | undefined, path: string) {
 }
 
 export function createAttractionStructuredData(site: URL | undefined) {
-  const data: Record<string, unknown> = {
+  const siteUrl = absoluteUrl(site, "/");
+  const imageUrl = absoluteUrl(site, attraction.ogImage);
+  const attractionUrl = siteUrl ?? `https://${siteDomain}/`;
+
+  return {
     "@context": "https://schema.org",
-    "@type": ["TouristAttraction", "LocalBusiness"],
+    "@type": "TouristAttraction",
+    "@id": `${attractionUrl}#attraction`,
     name: attraction.name,
-    alternateName: attraction.alternateName,
+    alternateName: [
+      attraction.alternateName,
+      attraction.shortName,
+      "竹北市 頭前溪豆腐岩",
+    ],
     description: attraction.description,
+    url: attractionUrl,
+    isAccessibleForFree: true,
+    image: imageUrl ? [imageUrl] : [],
     address: {
       "@type": "PostalAddress",
       streetAddress: "頭前溪",
@@ -268,19 +328,9 @@ export function createAttractionStructuredData(site: URL | undefined) {
         closes: "23:59",
       },
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: attraction.ratingValue,
-      bestRating: "5",
-    },
-    priceRange: "Free",
+    hasMap: attraction.googleMapsUrl,
+    sameAs: [attraction.googleMapsUrl],
   };
-
-  const siteUrl = absoluteUrl(site, "/");
-  const imageUrl = absoluteUrl(site, attraction.ogImage);
-  if (siteUrl) data.url = siteUrl;
-  if (imageUrl) data.image = [imageUrl];
-  return data;
 }
 
 export function createFaqStructuredData() {
@@ -295,5 +345,23 @@ export function createFaqStructuredData() {
         text: item.answer,
       },
     })),
+  };
+}
+
+export function createBreadcrumbStructuredData(
+  site: URL | undefined,
+  pathname: string,
+  label: string
+) {
+  const siteUrl = site ? site.toString().replace(/\/$/, "") : `https://${siteDomain}`;
+  const home = `${siteUrl}/`;
+  const current = `${siteUrl}${pathname}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "首頁", item: home },
+      { "@type": "ListItem", position: 2, name: label, item: current },
+    ],
   };
 }

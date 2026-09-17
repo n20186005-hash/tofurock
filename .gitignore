@@ -1,6 +1,31 @@
+# 依賴（不需上傳，部署時由 pnpm install 重新產生）
 node_modules/
+
+# 建置產物（手動部署時由 pnpm build 重新產生，再由 wrangler 上傳 dist/）
 dist/
+# Astro 類型與快取
 .astro/
+
+# Wrangler / Workers 本地狀態（不需上傳）
 .wrangler/
 .dev.vars
+
+# 環境變數與密鑰（絕對不要上傳）
+.env
+.env.*
+!.env.example
+
+# 日誌
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# 作業系統 / 編輯器
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 套件管理器鎖定檔若選擇不納入版本控制可取消註解
+# pnpm-lock.yaml

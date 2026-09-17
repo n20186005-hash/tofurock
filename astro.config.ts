@@ -9,6 +9,7 @@ const site = configuredSite && /^https?:\/\//.test(configuredSite)
 
 export default defineConfig({
   site,
+  trailingSlash: "always",
   integrations: site ? [sitemap()] : [],
   vite: {
     plugins: [tailwindcss()],

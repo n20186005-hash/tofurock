@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
 import { createAttractionStructuredData, itineraryPlaces } from "@/data/site";
 ---
-<BaseLayout title="行程清單" description="用 localStorage 收藏頭前溪豆腐岩與周邊想去的景點，資料只保存在目前裝置。" jsonLd={createAttractionStructuredData(Astro.site)}>
+<BaseLayout title="竹北一日遊行程｜豆腐岩周邊景點路線清單" description="用 localStorage 收藏頭前溪豆腐岩與周邊想去的景點，規劃竹北一日遊：新瓦屋客家文化保存區、豆腐岩拍照、喜來登周邊商圈晚餐，資料只保存在目前裝置。" jsonLd={createAttractionStructuredData(Astro.site)}>
   <PageHero
     kicker="行程收藏"
     title="行程清單：收藏想去的點"
@@ -39,13 +39,13 @@ import { createAttractionStructuredData, itineraryPlaces } from "@/data/site";
 
   <section class="bg-river-900 py-16 text-tofu-50">
     <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <p class="section-kicker !text-tofu-100/75">行程示例</p>
-      <h2 class="mt-3 text-3xl font-black sm:text-4xl">半日行程範例</h2>
+      <p class="section-kicker !text-tofu-100/75">竹北一日遊範例</p>
+      <h2 class="mt-3 text-3xl font-black sm:text-4xl">竹北一日遊怎麼排</h2>
       <div class="mt-8 grid gap-4 md:grid-cols-3">
         <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
           <p class="text-sm font-black text-tofu-100/80">下午</p>
-          <h3 class="mt-2 text-xl font-black">新瓦屋或竹北市區</h3>
-          <p class="mt-3 text-sm leading-7 text-tofu-50/75">先安排文化散步、咖啡或簡餐，避免太早到河岸曝曬。</p>
+          <h3 class="mt-2 text-xl font-black">新瓦屋文化散步</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">先安排客家文化保存區散步、咖啡或簡餐，避免太早到河岸曝曬。</p>
         </article>
         <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
           <p class="text-sm font-black text-tofu-100/80">夕陽前</p>
@@ -54,10 +54,11 @@ import { createAttractionStructuredData, itineraryPlaces } from "@/data/site";
         </article>
         <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-6">
           <p class="text-sm font-black text-tofu-100/80">晚上</p>
-          <h3 class="mt-2 text-xl font-black">竹北或新竹晚餐</h3>
-          <p class="mt-3 text-sm leading-7 text-tofu-50/75">拍完轉往餐飲集中區，不必在河岸找臨時用餐點。</p>
+          <h3 class="mt-2 text-xl font-black">喜來登周邊商圈晚餐</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/75">拍完轉往高鐵新竹站旁喜來登周邊商圈用餐，選擇多、動線順。</p>
         </article>
       </div>
+      <p class="mt-8 leading-8 text-tofu-50/78">完整的竹北周邊景點清單（含水圳森林公園、六家車站、新竹市區）請看 <a href="/nearby/" class="font-bold text-tofu-100 underline-offset-2 hover:underline">周邊景點：竹北 6 大順遊景點</a>。</p>
     </div>
   </section>
 

@@ -1,0 +1,25 @@
+{
+  "name": "頭前溪豆腐岩｜竹北河岸景觀指南",
+  "short_name": "豆腐岩",
+  "description": "新竹縣竹北市頭前溪豆腐岩遊客指南：交通、停車、周邊美食與景點、照片牆與本機紀念卡。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#2b6e73",
+  "lang": "zh-Hant-TW",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

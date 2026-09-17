@@ -1,0 +1,185 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { attraction, createAttractionStructuredData } from "@/data/site";
+---
+
+<BaseLayout
+  title="訪客指南"
+  description="頭前溪豆腐岩訪客指南：周邊設施、季節策略、分眾路線、半日與全日行程，以及河川科普與訪客責任。"
+  jsonLd={createAttractionStructuredData(Astro.site)}
+>
+  <PageHero
+    kicker="訪客指南"
+    title="去豆腐岩前，先看這一份"
+    description="把設施、季節、路線與科普一次整理：設施只說類型不點名店家，季節依長期氣候與現場觀察，路線按不同旅遊節奏與體力安排。"
+    image="/images/gallery-river-sunset.webp"
+    imageAlt="頭前溪豆腐岩黃昏河景"
+  />
+
+  {/* 訪客服務與周邊設施（類型中立概述） */}
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="section-kicker">周邊設施</p>
+    <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">訪客服務與周邊設施</h2>
+    <p class="mt-4 max-w-2xl leading-8 text-ink-900/72">
+      本站為非營利科普網站，以下僅以「設施類型」說明動線與補給，不推薦特定商家，請依現場標示與即時資訊自行選擇。
+    </p>
+    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">洗手間 / 廁所</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">河岸沿線的公廁多設於堤防、河濱公園與自行車道服務站。建議在到達景點前，先於停車場或服務站使用，現場未必有固定設施。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">停車</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">周邊有路邊收費停車格、河濱平面停車場與公有收費停車場等類型。假日黃昏熱門時段較滿，請停合法格並不阻礙通行。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">餐飲</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">竹北市區、高鐵新竹站周邊與主要餐飲帶有咖啡、簡餐、火鍋、小吃等類型。可把看景排在飯前或飯後，吃飯另覓市區。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">住宿</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">高鐵新竹站周邊有旅館與商務飯店類型，竹北市區亦有民宿與飯店類型，適合把河岸安排在半日或一日行程中。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">商超 / 補給</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">連鎖便利商店、量販店與生鮮超市等類型分布於市區與車站周邊，適合出發前補給飲水、防曬與輕食。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+        <h3 class="text-xl font-black text-river-900">加油 / 充電</h3>
+        <p class="mt-3 leading-7 text-ink-900/72">加油站類型沿主要幹道分布；電動車充電樁多設於停車場、購物中心與休息站，出發前可先查詢即時樁位與占用狀況。</p>
+      </article>
+    </div>
+  </section>
+
+  {/* 季度遊覽策略表 */}
+  <section class="bg-river-900 py-16 text-tofu-50">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="section-kicker !text-tofu-100/75">季節策略</p>
+      <h2 class="mt-3 text-3xl font-black text-balance sm:text-4xl">季度遊覽策略表</h2>
+      <p class="mt-4 max-w-3xl leading-8 text-tofu-50/78">
+        以下依據中央氣象署長期氣候資料與頭前溪現場觀察整理：氣象、水位水質與野生動物的綜合判讀，幫助你選對季節與裝備。
+      </p>
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full min-w-[640px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-tofu-50/20 text-tofu-100/80">
+              <th class="px-4 py-3 font-black">季節</th>
+              <th class="px-4 py-3 font-black">氣象特徵</th>
+              <th class="px-4 py-3 font-black">水位 / 水質</th>
+              <th class="px-4 py-3 font-black">野生動物</th>
+              <th class="px-4 py-3 font-black">遊覽建議</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-tofu-50/10">
+            <tr>
+              <td class="px-4 py-4 align-top font-black">春<br /><span class="text-xs font-normal text-tofu-50/60">3–5 月</span></td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">溫暖多變，午後易有陣雨，風向轉換頻繁。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">春雨使水位略升，水色偏濁，流量較冬季大。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">過境候鳥與岸鳥活動明顯，是觀鳥好時機。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">帶輕量雨具，穿止滑鞋；清晨光線柔和適合拍照。</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-4 align-top font-black">夏<br /><span class="text-xs font-normal text-tofu-50/60">6–8 月</span></td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">高溫高濕，午後雷陣雨，颱風季水位劇烈變化。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">汛期水位高、水流急，水質受沖刷影響大。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">鳥況較少；注意蚊蟲與高溫。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">嚴禁下河道；避開颱風與豪雨後，清晨或傍晚再訪。</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-4 align-top font-black">秋<br /><span class="text-xs font-normal text-tofu-50/60">9–11 月</span></td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">天氣穩定、溫度舒適，是全年最適合戶外的季節。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">水位回穩，水色較清，河床線條清楚。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">冬候鳥開始南下，鷺科與岸鳥增多。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">首推季節；夕陽與水光層次最佳，可安排較長停留。</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-4 align-top font-black">冬<br /><span class="text-xs font-normal text-tofu-50/60">12–2 月</span></td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">東北季風強、體感冷，晴日仍適合白天造訪。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">枯水期水位低，部分河床裸露，方格構造更醒目。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">候鳥旺季，泥灘與水邊鳥況豐富。</td>
+              <td class="px-4 py-4 align-top text-tofu-50/82">注意保暖與防風；枯水期更別跨越護欄進入河床。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {/* 按人群定制的遊覽方案 */}
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="section-kicker">分眾路線</p>
+    <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">按人群定制的遊覽方案</h2>
+    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+      <article class="rounded-3xl bg-white/75 p-7 ring-1 ring-river-900/10">
+        <h3 class="text-2xl font-black text-river-900">親子家庭</h3>
+        <p class="mt-4 leading-8 text-ink-900/72">以「看得到、走得動、隨時能撤」為原則：停好車後沿堤岸平坦步道觀景，不靠近水邊與護欄外緣；每 20–30 分鐘安排一次休息與上廁所，並預留遮蔭與飲水。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-7 ring-1 ring-river-900/10">
+        <h3 class="text-2xl font-black text-river-900">攝影自然</h3>
+        <p class="mt-4 leading-8 text-ink-900/72">黃昏前後與枯水期最出片：水光、橋影與方格護床的幾何線條層次最豐富；冬季與春季可順拍候鳥。備腳架、偏光鏡與防風，並且不為了構圖越線。</p>
+      </article>
+      <article class="rounded-3xl bg-white/75 p-7 ring-1 ring-river-900/10">
+        <h3 class="text-2xl font-black text-river-900">低體力無障礙</h3>
+        <p class="mt-4 leading-8 text-ink-900/72">選堤岸無階梯、鄰近停車的動線，減少步行與高低差；多利用座椅與遮蔭處休息，全程留在合法觀景平台，必要時以車輛接駁到最近落客點。</p>
+      </article>
+    </div>
+  </section>
+
+  {/* 推薦通用遊覽路線 */}
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="section-kicker">行程建議</p>
+    <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">推薦通用遊覽路線</h2>
+    <div class="mt-8 grid gap-4 lg:grid-cols-2">
+      <div class="rounded-3xl bg-tofu-100/70 p-7 ring-1 ring-river-900/10">
+        <h3 class="text-2xl font-black text-river-900">半日路線（約 3–4 小時）</h3>
+        <ol class="mt-5 space-y-3 text-ink-900/78">
+          <li class="flex gap-3"><span class="font-black text-clay-500">01</span><span>高鐵新竹站 / 六家站集合，補給飲水與輕食。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">02</span><span>新瓦屋客家文化保存區散步、認識竹北聚落。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">03</span><span>頭前溪河岸看豆腐岩方格與竹北天際線。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">04</span><span>黃昏前拍夕光，再到竹北或新竹市區晚餐。</span></li>
+        </ol>
+      </div>
+      <div class="rounded-3xl bg-tofu-100/70 p-7 ring-1 ring-river-900/10">
+        <h3 class="text-2xl font-black text-river-900">全日路線（約 6–8 小時）</h3>
+        <ol class="mt-5 space-y-3 text-ink-900/78">
+          <li class="flex gap-3"><span class="font-black text-clay-500">01</span><span>上午抵達，先走河濱自行車道與豆腐岩。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">02</span><span>午間於竹北市區用餐，順游光明一路餐飲帶。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">03</span><span>下午轉往新竹市區：城隍廟周邊老街與小吃。</span></li>
+          <li class="flex gap-3"><span class="font-black text-clay-500">04</span><span>傍晚回河岸補拍夜景橋燈，再返程。</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {/* 科普與訪客責任 */}
+  <section class="bg-river-900 py-16 text-tofu-50">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+      <div>
+        <p class="section-kicker !text-tofu-100/75">科普與責任</p>
+        <h2 class="mt-3 text-3xl font-black text-balance sm:text-4xl">豆腐岩是怎麼來的？</h2>
+        <p class="mt-5 leading-8 text-tofu-50/78">
+          豆腐岩不是天然奇岩，而是頭前溪河床裡規律排列的護床與消波構造：水泥方塊像一格格豆腐，用來穩定河床、減緩水流沖刷、保護堤防與橋墩。它見證了河川治理與城市發展的關係，也成為新竹河岸極具辨識度的景觀。
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">河川水文</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/76">頭前溪承接上游降雨，水位與水色隨季節、颱風與枯水期大幅變化；漲水時切勿靠近河道。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">河岸生態</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/76">水邊與泥灘是鷺科、岸鳥與季節性候鳥的棲地，請遠觀不驚擾，不餵食、不捕捉。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">安全距離</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/76">護床非步道，濕滑且有落差與水流風險；請留在堤岸、平台與合法觀景位置。</p>
+        </article>
+        <article class="rounded-3xl border border-tofu-50/15 bg-white/[0.07] p-5">
+          <h3 class="font-black">無痕造訪</h3>
+          <p class="mt-3 text-sm leading-7 text-tofu-50/76">垃圾帶走、不破壞構造與植被；把這片河岸留給下一位旅人與候鳥。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,169 @@
+---
+import { fetchWeather, buildAdvice } from "@/data/weather";
+import { attraction } from "@/data/site";
+
+// 天氣資料於建置時由伺服器端取得，並內嵌快取於靜態頁面。
+const weather = await fetchWeather(attraction.latitude, attraction.longitude);
+const advice = weather ? buildAdvice(weather) : null;
+
+const uvLabel = (uv: number) => {
+  if (uv >= 8) return "很強";
+  if (uv >= 6) return "強";
+  if (uv >= 3) return "中等";
+  if (uv >= 1) return "弱";
+  return "低";
+};
+
+const hasAdvice =
+  advice && (advice.outfit.length || advice.activities.length || advice.items.length || advice.risks.length || advice.alerts.length);
+---
+
+{
+  weather && advice ? (
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="glass-panel rounded-[2.4rem] p-8 sm:p-10">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="section-kicker">天氣與出門建議</p>
+            <h2 class="mt-3 text-3xl font-black text-ink-900 sm:text-4xl">頭前溪豆腐岩 即時天氣</h2>
+          </div>
+          <p class="text-sm font-bold text-ink-900/60">{attraction.localArea}</p>
+        </div>
+
+        <div class="mt-8 grid gap-8 lg:grid-cols-[1.1fr_1.4fr]">
+          <div class="rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+            <div class="flex items-center gap-4">
+              <span class="text-6xl" aria-hidden="true">{weather.current.emoji}</span>
+              <div>
+                <p class="text-5xl font-black text-river-900">{weather.current.temperature}°</p>
+                <p class="mt-1 text-lg font-bold text-ink-900/80">{weather.current.text}</p>
+              </div>
+            </div>
+            <dl class="mt-6 grid grid-cols-2 gap-4 text-sm">
+              <div class="rounded-2xl bg-white/70 p-4">
+                <dt class="font-black text-river-700">體感溫度</dt>
+                <dd class="mt-1 text-lg font-bold text-ink-900/80">{weather.current.apparentTemperature}°C</dd>
+              </div>
+              <div class="rounded-2xl bg-white/70 p-4">
+                <dt class="font-black text-river-700">相對濕度</dt>
+                <dd class="mt-1 text-lg font-bold text-ink-900/80">{weather.current.humidity}%</dd>
+              </div>
+              <div class="rounded-2xl bg-white/70 p-4">
+                <dt class="font-black text-river-700">風力</dt>
+                <dd class="mt-1 text-lg font-bold text-ink-900/80">{weather.current.windLevel} 級</dd>
+              </div>
+              <div class="rounded-2xl bg-white/70 p-4">
+                <dt class="font-black text-river-700">紫外線</dt>
+                <dd class="mt-1 text-lg font-bold text-ink-900/80">{weather.current.uvIndex}（{uvLabel(weather.current.uvIndex)}）</dd>
+              </div>
+              <div class="col-span-2 rounded-2xl bg-white/70 p-4">
+                <dt class="font-black text-river-700">今日降雨機率</dt>
+                <dd class="mt-1 text-lg font-bold text-ink-900/80">{weather.daily[0]?.precipProbability ?? 0}%</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="space-y-4">
+            {/* 氣象預警：優先級最高，置頂紅色 */}
+            {
+              advice.alerts.length > 0 && (
+                <div class="rounded-3xl border border-red-400/40 bg-red-500/10 p-5">
+                  <p class="flex items-center gap-2 text-sm font-black text-red-700">
+                    <span aria-hidden="true">⚠️</span> 氣象預警
+                  </p>
+                  <ul class="mt-2 space-y-1 text-sm font-bold leading-7 text-red-700">
+                    {advice.alerts.map((a) => <li>【{a}】已發布，建議調整行程，儘量不要前往山區、河岸等危險區域，密切關注天氣變化。</li>)}
+                  </ul>
+                </div>
+              )
+            }
+
+            {/* 風險提醒：有才顯示 */}
+            {
+              advice.risks.length > 0 && (
+                <div class="rounded-3xl border border-red-400/40 bg-red-500/10 p-5">
+                  <p class="flex items-center gap-2 text-sm font-black text-red-700">
+                    <span aria-hidden="true">⚠️</span> 風險提醒
+                  </p>
+                  <ul class="mt-2 space-y-1 text-sm font-bold leading-7 text-red-700">
+                    {advice.risks.map((r) => <li>{r}</li>)}
+                  </ul>
+                </div>
+              )
+            }
+
+            {/* 出行穿搭 / 游玩安排 / 随身物品：條件觸發才顯示 */}
+            <div class="grid gap-4 sm:grid-cols-3">
+              {
+                advice.outfit.length > 0 && (
+                  <div class="rounded-3xl bg-white/75 p-5 ring-1 ring-river-900/10">
+                    <p class="text-sm font-black tracking-[0.16em] text-clay-500">出行穿搭</p>
+                    <ul class="mt-3 space-y-2 text-sm leading-7 text-ink-900/78">
+                      {advice.outfit.map((o) => <li>✅ {o}</li>)}
+                    </ul>
+                  </div>
+                )
+              }
+              {
+                advice.activities.length > 0 && (
+                  <div class="rounded-3xl bg-white/75 p-5 ring-1 ring-river-900/10">
+                    <p class="text-sm font-black tracking-[0.16em] text-clay-500">遊玩安排</p>
+                    <ul class="mt-3 space-y-2 text-sm leading-7 text-ink-900/78">
+                      {advice.activities.map((a) => <li>✅ {a}</li>)}
+                    </ul>
+                  </div>
+                )
+              }
+              {
+                advice.items.length > 0 && (
+                  <div class="rounded-3xl bg-white/75 p-5 ring-1 ring-river-900/10">
+                    <p class="text-sm font-black tracking-[0.16em] text-clay-500">隨身物品</p>
+                    <ul class="mt-3 space-y-2 text-sm leading-7 text-ink-900/78">
+                      {advice.items.map((i) => <li>🎒 {i}</li>)}
+                    </ul>
+                  </div>
+                )
+              }
+            </div>
+
+            {
+              !hasAdvice && (
+                <p class="rounded-3xl bg-white/75 p-5 text-sm leading-7 text-ink-900/72 ring-1 ring-river-900/10">
+                  今天天氣平穩，按一般行程安排即可；仍建議出發前留意最新預報。
+                </p>
+              )
+            }
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-3xl bg-white/75 p-6 ring-1 ring-river-900/10">
+          <p class="text-sm font-black tracking-[0.16em] text-clay-500">未來多日預報</p>
+          <ul class="mt-4 divide-y divide-river-900/10">
+            {weather.daily.slice(0, 7).map((day, i) => (
+              <li class="flex items-center gap-4 py-3">
+                <span class="w-14 shrink-0 text-sm font-black text-ink-900/70">
+                  {i === 0 ? "今天" : day.weekday}
+                </span>
+                <span class="text-2xl" aria-hidden="true">{day.emoji}</span>
+                <span class="hidden w-24 shrink-0 text-sm text-ink-900/70 sm:block">{day.text}</span>
+                <span class="ml-auto flex items-center gap-3 text-sm font-bold text-ink-900/80">
+                  <span class="text-river-700">{day.tempMax}°</span>
+                  <span class="text-ink-900/40">/</span>
+                  <span>{day.tempMin}°</span>
+                </span>
+                <span class="w-16 shrink-0 text-right text-xs font-bold text-river-700">☔{day.precipProbability}%</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="glass-panel rounded-[2.4rem] p-8 text-center">
+        <p class="section-kicker">天氣與出門建議</p>
+        <p class="mt-3 text-lg font-bold text-ink-900/70">天氣資訊暫時無法顯示，建議出發前查詢中央氣象署最新預報。</p>
+      </div>
+    </section>
+  )
+}
